@@ -1,6 +1,6 @@
-# LinkDetectore
+# LinkDetector
 
-LinkDetectore is a Swift Package that provides live detection of email addresses, phone numbers, and website links inside an editable text field. As the user types, detected patterns become clickable links in real time. This is achieved using a `UITextView` wrapped in a SwiftUI-compatible component.
+LinkDetector is a Swift Package that provides live detection of email addresses, phone numbers, and website links inside an editable text field. As the user types, detected patterns become clickable links in real time. This is achieved using a `UITextView` wrapped in a SwiftUI-compatible component.
 
 ---
 
@@ -14,7 +14,7 @@ LinkDetectore is a Swift Package that provides live detection of email addresses
 
 ```
 
-https://github.com/Excelsior-Technologies-Community/LinkDetectore
+https://github.com/Excelsior-Technologies-Community/LinkDetector
 
 ````
 
@@ -23,7 +23,7 @@ https://github.com/Excelsior-Technologies-Community/LinkDetectore
 6. Import the library where you want to use it:
 
 ```swift
-import LinkDetectore
+import LinkDetector
 ````
 
 ---
@@ -35,7 +35,8 @@ As the user types, emails, phone numbers, and URLs become clickable automaticall
 
 ```swift
 import SwiftUI
-import LinkDetectore
+import LinkDetector
+
 
 struct ContentView: View {
     @State private var message = ""
