@@ -1,21 +1,18 @@
 import Foundation
-
-struct DetectedItem: Identifiable {
-    let id = UUID()
-    let text: String
-    let url: URL?
+import UIKit
+import SwiftUI
+ 
+public struct DetectedItem: Identifiable {
+    public let id = UUID()
+    public let text: String
+    public let url: URL?
 }
 
 
-import SwiftUI
-import UIKit
-import SwiftUI
-import UIKit
-
-struct LiveDetectingTextView: UIViewRepresentable {
+public  struct LiveDetectingTextView: UIViewRepresentable {
     @Binding var text: String
 
-    func makeUIView(context: Context) -> UITextView {
+    public func makeUIView(context: Context) -> UITextView {
         let tv = UITextView()
         tv.isEditable = true
         tv.isScrollEnabled = true
@@ -27,24 +24,24 @@ struct LiveDetectingTextView: UIViewRepresentable {
         return tv
     }
 
-    func updateUIView(_ uiView: UITextView, context: Context) {
+    public func updateUIView(_ uiView: UITextView, context: Context) {
         if uiView.text != text {
             uiView.text = text
         }
     }
 
-    func makeCoordinator() -> Coordinator {
+    public func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
 
-    class Coordinator: NSObject, UITextViewDelegate {
+    public class Coordinator: NSObject, UITextViewDelegate {
         var parent: LiveDetectingTextView
 
         init(_ parent: LiveDetectingTextView) {
             self.parent = parent
         }
 
-        func textViewDidChange(_ textView: UITextView) {
+        public func textViewDidChange(_ textView: UITextView) {
             parent.text = textView.text
             
             let cursor = textView.selectedRange
