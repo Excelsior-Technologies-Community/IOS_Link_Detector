@@ -1,41 +1,6 @@
-# LinkDetector
+# LinkDetectore
 
-Lightweight Swift package to detect phone numbers, emails, and website links inside a string and return ordered, tappable items (text + URL). Ideal for use in SwiftUI/UIKit projects that need simple link extraction logic.
-
----
-
-## Features
-
-* Detects phone numbers, emails and website-like strings
-* Returns ordered `DetectedItem` objects with `text` and `URL?`
-* Works on iOS and macOS (minimum platform set in Package.swift)
-* Simple, dependency-free API — ready to import via Swift Package Manager
-
----
-
-## Requirements
-
-* Swift 5.9+
-* Xcode 15+
-* Platforms defined in `Package.swift` (example in this repo uses iOS 14+, macOS 12+)
-
----
-
-## Package structure
-
-```
-LinkDetector/
-├── Package.swift
-├── README.md
-└── Sources/
-    └── LinkDetector/
-        └── LinkDetector.swift
-```
-
-`LinkDetector.swift` contains two public types:
-
-* `public struct DetectedItem: Identifiable` — holds `text: String` and `url: URL?`
-* `public class LinkDetector` — contains `public static func detectLinks(in:) -> [DetectedItem]`
+LinkDetectore is a Swift Package that provides live detection of email addresses, phone numbers, and website links inside an editable text field. As the user types, detected patterns become clickable links in real time. This is achieved using a `UITextView` wrapped in a SwiftUI-compatible component.
 
 ---
 
@@ -43,54 +8,47 @@ LinkDetector/
 
 ### Add via Swift Package Manager (recommended)
 
-1. In Xcode open your app/project.
-2. **File → Add Packages...**
-3. Paste your repository URL (e.g. `https://github.com/<your-username>/LinkDetector`).
-4. Choose the version/tag you want (for example `1.0.0`) and click **Add Package**.
-5. Import and use in your code:
+1. Open your Xcode project.
+2. Select **File → Add Packages...**
+3. Enter the package URL:
 
-```swift
-import LinkDetector
-
-let items = LinkDetector.detectLinks(in: "Contact: noman@gmail.com or visit example.com or call 9876543210")
 ```
 
-### Add manually (copy source)
+https://github.com/Excelsior-Technologies-Community/LinkDetectore
 
-If you prefer not to use SPM, copy `Sources/LinkDetector/LinkDetector.swift` into your project and make sure the types you need are `public`.
+````
+
+4. Select the latest version (for example `1.0.0`).
+5. Click **Add Package**.
+6. Import the library where you want to use it:
+
+```swift
+import LinkDetectore
+````
 
 ---
 
-## Quick Usage Example (SwiftUI)
+## Usage Example (SwiftUI)
+
+The following example shows how to embed the `LiveDetectingTextView` inside your SwiftUI view.
+As the user types, emails, phone numbers, and URLs become clickable automatically.
 
 ```swift
 import SwiftUI
-import LinkDetector
+import LinkDetectore
 
-struct DemoView: View {
-    @State private var text = "Contact noman@gmail.com or 9876543210 or visit apple.com"
+struct ContentView: View {
+    @State private var message = ""
 
     var body: some View {
-        VStack(alignment: .leading) {
-            TextEditor(text: $text)
-                .frame(height: 140)
-                .border(Color.gray)
+        VStack {
+            Text("Type here, links become clickable LIVE:")
+                .font(.headline)
 
-            let items = LinkDetector.detectLinks(in: text)
+            LiveDetectingTextView(text: $message)
+                .frame(height: 200)
+                .border(Color.gray.opacity(0.4))
 
-            HStack {
-                ForEach(items) { item in
-                    if let url = item.url {
-                        Text(item.text)
-                            .foregroundColor(.blue)
-                            .underline()
-                            .onTapGesture { UIApplication.shared.open(url) }
-                    } else {
-                        Text(item.text)
-                    }
-                    Text(" ")
-                }
-            }
             Spacer()
         }
         .padding()
@@ -98,65 +56,24 @@ struct DemoView: View {
 }
 ```
 
-> Note: For a fully editable single-field experience with live clickable links you should use a `UITextView`-based wrapper as described in the project examples. `TextField` cannot display clickable attributed links.
+---
+
+## What LiveDetectingTextView Does
+
+* Detects and hyperlinks:
+
+  * Email addresses (example: `test@example.com`)
+  * Website URLs (example: `apple.com`, `https://google.com`)
+  * Phone numbers (example: `9876543210`)
+* Updates links instantly as the user types
+* Preserves cursor position
+* Works entirely inside a single editable field (unlike TextField/TextEditor)
 
 ---
 
-## Publishing your package (GitHub + SPM)
+## Requirements
 
-1. Create a Git repository and push the package root (the folder containing `Package.swift`).
-
-```bash
-git init
-git add .
-git commit -m "Initial commit: LinkDetector"
-git remote add origin https://github.com/<your-username>/LinkDetector.git
-git branch -M main
-git push -u origin main
-```
-
-2. Create a release tag (semantic version)
-
-```bash
-git tag 1.0.0
-git push origin 1.0.0
-```
-
-3. In Xcode add the package via **File → Add Packages...** using the repo URL and select the tag.
-
----
-
-## Testing
-
-A test target exists in `Package.swift` as `LinkDetectorTests`. Add XCTest files under `Tests/LinkDetectorTests` and run tests via Xcode or `swift test`.
-
----
-
-## Contributing
-
-Contributions are welcome. Please follow these guidelines:
-
-* Create feature branches from `main`.
-* Add tests for new behavior.
-* Keep API surface small and stable.
-
----
-
-## License
-
-Add your chosen license here (MIT is a common choice). Example `LICENSE` file content for MIT:
-
-```
-MIT License
-
-Copyright (c) YYYY <Your Name>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-... (standard MIT text) ...
-```
-
----
-
-## Support
-
-If you run into trouble installing the package or want help integrating with SwiftUI or UITextView wrappers, open an issue on the repository or contact the maintainer.
+* iOS 14+
+* Swift 5.7 or later
+* Xcode 14 or later
+ 
