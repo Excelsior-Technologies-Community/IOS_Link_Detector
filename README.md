@@ -14,7 +14,7 @@ LinkDetectore is a Swift Package that provides live detection of email addresses
 
 ```
 
-[https://github.com/Excelsior-Technologies-Community/LinkDetectore](https://github.com/Excelsior-Technologies-Community/LinkDetectore)
+https://github.com/Excelsior-Technologies-Community/LinkDetectore
 
 ````
 
