@@ -1,55 +1,54 @@
+# LinkDetectore
+
+LinkDetectore is a Swift Package that provides live detection of email addresses, phone numbers, and website links inside an editable text field. As the user types, detected patterns become clickable links in real time. This is achieved using a `UITextView` wrapped in a SwiftUI-compatible component.
+
+---
+
 ## Installation
 
 ### Add via Swift Package Manager (recommended)
 
-1. In Xcode open your app/project.
-2. **File → Add Packages...**
-3. Paste your repository URL (e.g. `https://github.com/<your-username>/LinkDetectore`).
-4. Choose the version/tag you want (for example `1.0.0`) and click **Add Package**.
-5. Import and use in your code:
+1. Open your Xcode project.
+2. Select **File → Add Packages...**
+3. Enter the package URL:
+
+```
+
+[https://github.com/Excelsior-Technologies-Community/LinkDetectore](https://github.com/Excelsior-Technologies-Community/LinkDetectore)
+
+````
+
+4. Select the latest version (for example `1.0.0`).
+5. Click **Add Package**.
+6. Import the library where you want to use it:
 
 ```swift
 import LinkDetectore
-
-let items = LinkDetector.detectLinks(in: "Contact: noman@gmail.com or visit example.com or call 9876543210")
-```
-
-### Add manually (copy source)
-
-If you prefer not to use SPM, copy `Sources/LinkDetectore/LinkDetector.swift` into your project and make sure the types you need are `public`.
+````
 
 ---
 
-## Quick Usage Example (SwiftUI)
+## Usage Example (SwiftUI)
+
+The following example shows how to embed the `LiveDetectingTextView` inside your SwiftUI view.
+As the user types, emails, phone numbers, and URLs become clickable automatically.
 
 ```swift
 import SwiftUI
 import LinkDetectore
 
-struct DemoView: View {
-    @State private var text = "Contact noman@gmail.com or 9876543210 or visit apple.com"
+struct ContentView: View {
+    @State private var message = ""
 
     var body: some View {
-        VStack(alignment: .leading) {
-            TextEditor(text: $text)
-                .frame(height: 140)
-                .border(Color.gray)
+        VStack {
+            Text("Type here, links become clickable LIVE:")
+                .font(.headline)
 
-            let items = LinkDetector.detectLinks(in: text)
+            LiveDetectingTextView(text: $message)
+                .frame(height: 200)
+                .border(Color.gray.opacity(0.4))
 
-            HStack {
-                ForEach(items) { item in
-                    if let url = item.url {
-                        Text(item.text)
-                            .foregroundColor(.blue)
-                            .underline()
-                            .onTapGesture { UIApplication.shared.open(url) }
-                    } else {
-                        Text(item.text)
-                    }
-                    Text(" ")
-                }
-            }
             Spacer()
         }
         .padding()
@@ -57,4 +56,24 @@ struct DemoView: View {
 }
 ```
 
+---
+
+## What LiveDetectingTextView Does
+
+* Detects and hyperlinks:
+
+  * Email addresses (example: `test@example.com`)
+  * Website URLs (example: `apple.com`, `https://google.com`)
+  * Phone numbers (example: `9876543210`)
+* Updates links instantly as the user types
+* Preserves cursor position
+* Works entirely inside a single editable field (unlike TextField/TextEditor)
+
+---
+
+## Requirements
+
+* iOS 14+
+* Swift 5.7 or later
+* Xcode 14 or later
  
