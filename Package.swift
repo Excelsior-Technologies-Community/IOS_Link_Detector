@@ -2,25 +2,25 @@
 import PackageDescription
 
 let package = Package(
-    name: "LinkDetectore",
+    name: "LinkDetector",
     platforms: [
         .iOS(.v14),      // Choose your minimum supported iOS version
         .macOS(.v12)
     ],
     products: [
         .library(
-            name: "LinkDetectore",
-            targets: ["LinkDetectore"]
+            name: "LinkDetector",
+            targets: ["LinkDetector"]
         )
     ],
     targets: [
         .target(
-            name: "LinkDetectore",
+            name: "LinkDetector",
             dependencies: []
         ),
         .testTarget(
             name: "LinkDetectoreTests",
-            dependencies: ["LinkDetectore"]
+            dependencies: ["LinkDetector"]
         )
     ]
 )
